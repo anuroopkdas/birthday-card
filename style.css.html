@@ -1,88 +1,10 @@
-/* General styles */
+/* Make body fill screen and show background image */
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', sans-serif;
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    overflow: hidden;
-
-    /* Background image */
-    background: url('https://anuroopkdas.github.io/birthday-card/background.jpg') no-repeat center center fixed;
+    width: 100vw;
+    background: url('https://yourusername.github.io/birthday-card/background.jpg') no-repeat center center fixed;
     background-size: cover;
-    position: relative;
-}
-
-/* Optional: soft overlay to make text readable */
-body::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 182, 193, 0.4); /* soft pastel pink overlay */
-    z-index: 0;
-}
-
-/* Floating hearts */
-.hearts-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 5;
-}
-
-.heart {
-    position: absolute;
-    font-size: 1.5rem;
-    color: #ff99cc;
-    opacity: 0.8;
-    animation: floatHeart 6s infinite ease-in-out;
-}
-
-@keyframes floatHeart {
-    0% { transform: translateY(100vh) scale(0.8); opacity: 0.6; }
-    50% { opacity: 1; }
-    100% { transform: translateY(-10vh) scale(1); opacity: 0; }
-}
-
-/* Card content */
-.card-content {
-    z-index: 10;
-    text-align: center;
-}
-
-/* Typewriter text */
-#typewriter {
-    font-size: 1.5rem;
-    color: #d63384;
-    max-width: 80%;
-    margin: 20px auto;
-    line-height: 1.5;
-}
-
-/* Locked heart */
-.heart-container {
-    margin-top: 40px;
-}
-
-.locked-heart {
-    font-size: 3rem;
-    cursor: pointer;
-    text-shadow: 0 0 10px #ff99cc, 0 0 20px #ff66b2, 0 0 30px #ff3385;
-    animation: floaty 3s ease-in-out infinite;
-    transition: transform 0.2s, text-shadow 0.2s;
-}
-
-.locked-heart:hover {
-    transform: scale(1.2);
-}
-
-@keyframes floaty {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
+    font-family: 'Segoe UI', sans-serif;
 }
