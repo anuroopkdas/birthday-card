@@ -11,9 +11,20 @@ html, body {
     background-color: #ffe6f0; /* soft pink for now */
 }
 
-/* Centered text */
+/* Centered text with slide-up animation */
 .birthday-text {
     font-size: 3rem; /* big enough for phones */
     color: #d63384;
     text-align: center;
+    opacity: 0;
+    transform: translateY(50px); /* start below */
+    animation: slideUp 1.5s forwards;
+}
+
+/* Slide-up keyframes */
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
