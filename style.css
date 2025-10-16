@@ -1,40 +1,47 @@
-/* Make sure the base HTML and BODY elements fill the whole screen */
-html, body {
-    /* Critical step: ensures the height is 100% of the viewport */
-    height: 100%; 
-    margin: 0;
-    padding: 0;
-}
-
 body {
-    /* Standard settings */
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-
-    /* --- The Centering Magic --- */
-    /* 1. Set the body as a flex container */
-    display: flex; 
-    
-    /* 2. Center the content horizontally */
-    justify-content: center; 
-    
-    /* 3. Center the content vertically (requires height: 100% from above!) */
-    align-items: flex-end; 
-}
-
-/* Style the message itself */
-.birthday-message h1 {
-    text-align: center; 
-    color: #e91e63; /* A nice pink/red for contrast */
-    font-size: 2.5em; 
-    padding: 0;
     margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif; /* Clean, modern font */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    
+    display: flex; /* Enable Flexbox for body */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    
+    background-color: #1a1a1a; /* Dark background color for the outside (like your image) */
 }
 
-/* Make it look great on mobile */
-@media (max-width: 600px) {
+.birthday-message {
+    background-color: #ff6347; /* Coral/salmon color from your image */
+    border-radius: 20px; /* Rounded corners for the card */
+    padding: 20px; /* Some internal padding */
+    width: 90%; /* Make it take up most of the width */
+    max-width: 400px; /* Limit max width for larger screens */
+    
+    /* Center the text *inside* this div */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh; /* Make the card tall, roughly like your image */
+    box-sizing: border-box; /* Include padding in width/height calculations */
+}
+
+.birthday-message h1 {
+    text-align: center; /* Center the text horizontally */
+    color: white; /* White text color */
+    font-size: 2.5em; /* Large font size */
+    font-weight: bold; /* Make the text bold */
+    margin: 0; /* Remove default h1 margin */
+    line-height: 1; /* Adjust line height for better centering */
+}
+
+/* Optional: Adjust font size for even smaller screens if needed */
+@media (max-width: 480px) {
     .birthday-message h1 {
-        font-size: 3.5em; /* Even larger on small screens */
+        font-size: 2em; /* Slightly smaller for very small phones */
+    }
+    .birthday-message {
+        border-radius: 15px; /* Slightly less rounded for very small phones */
+        min-height: 80vh; /* Make the card even taller proportionally */
     }
 }
-
