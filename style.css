@@ -19,7 +19,7 @@ body {
     justify-content: center; 
     
     /* 3. Center the content vertically (requires height: 100% from above!) */
-    align-items: center; 
+    align-items: flex-end; 
 }
 
 /* Style the message itself */
@@ -37,3 +37,4 @@ body {
         font-size: 3.5em; /* Even larger on small screens */
     }
 }
+
