@@ -1,4 +1,4 @@
-/* Make page fill the screen */
+/* Reset default margins and padding */
 html, body {
     margin: 0;
     padding: 0;
@@ -8,18 +8,21 @@ html, body {
     background-color: #ffe6f0; /* soft pink for now */
 }
 
-/* Center everything */
+/* Center container vertically and horizontally */
 .container {
     display: flex;
-    justify-content: center; /* horizontal center */
-    align-items: center;     /* vertical center */
-    height: 100vh;           /* full viewport height */
+    justify-content: center;  /* horizontal center */
+    align-items: center;      /* vertical center */
+    min-height: 100vh;        /* ensures full viewport height even on mobile */
     width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); /* handles notches on iPhone */
 }
 
 /* Birthday text styling */
 .birthday-text {
-    font-size: 3rem;       /* big and readable on phones */
+    font-size: 3rem;   /* readable on mobile */
     color: #d63384;
-    text-align: center;
+    margin: 0;
 }
