@@ -1,0 +1,39 @@
+/* Make sure the base HTML and BODY elements fill the whole screen */
+html, body {
+    /* Critical step: ensures the height is 100% of the viewport */
+    height: 100%; 
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* Standard settings */
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+
+    /* --- The Centering Magic --- */
+    /* 1. Set the body as a flex container */
+    display: flex; 
+    
+    /* 2. Center the content horizontally */
+    justify-content: center; 
+    
+    /* 3. Center the content vertically (requires height: 100% from above!) */
+    align-items: center; 
+}
+
+/* Style the message itself */
+.birthday-message h1 {
+    text-align: center; 
+    color: #e91e63; /* A nice pink/red for contrast */
+    font-size: 2.5em; 
+    padding: 0;
+    margin: 0;
+}
+
+/* Make it look great on mobile */
+@media (max-width: 600px) {
+    .birthday-message h1 {
+        font-size: 3.5em; /* Even larger on small screens */
+    }
+}
