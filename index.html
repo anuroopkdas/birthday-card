@@ -16,13 +16,13 @@
       margin: 0;
       padding: 0;
       height: 100vh;
-      background:
-        linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-        url('background.jpg') no-repeat center center fixed;
+      background: url('background.jpg') no-repeat center center fixed;
       background-size: cover;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
+      text-align: center;
     }
 
     h1 {
@@ -30,12 +30,41 @@
       font-family: 'Playfair Display', serif;
       font-weight: 700;
       font-size: 2.5em;
-      text-align: center;
       text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.6);
+      margin: 0;
+    }
+
+    img {
+      width: 100px;
+      height: auto;
+      margin-top: 20px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <h1 class="animate__animated animate__fadeIn animate__zoomIn">Happy Birthday</h1>
+  <img src="gift.png" alt="Gift Icon" class="animate__animated animate__fadeInUp animate__delay-1s" id="gift">
+
+  <!-- Canvas Confetti Script -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <script>
+    const gift = document.getElementById('gift');
+
+    gift.addEventListener('click', () => {
+      // Burst of confetti
+      confetti({
+        particleCount: 200,
+        spread: 90,
+        startVelocity: 50,
+        origin: { y: 0.7 },
+      });
+
+      // Small follow-up bursts for extra flair
+      setTimeout(() => confetti({ particleCount: 100, spread: 70, origin: { y: 0.7 } }), 300);
+      setTimeout(() => confetti({ particleCount: 80, spread: 100, origin: { y: 0.7 } }), 600);
+    });
+  </script>
 </body>
 </html>
