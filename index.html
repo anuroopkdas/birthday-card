@@ -15,8 +15,8 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100dvh; /* dynamic full viewport height for mobile */
-      overflow: hidden; /* prevents scrolling */
+      height: 100dvh;
+      overflow: hidden;
     }
 
     body {
@@ -27,6 +27,7 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+      position: relative;
     }
 
     h1 {
@@ -36,7 +37,7 @@
       font-size: 2.5em;
       text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.6);
       margin: 0;
-      transition: transform 0.2s ease; /* smooth growth */
+      transition: transform 0.2s ease;
     }
 
     img {
@@ -44,12 +45,37 @@
       height: auto;
       margin-top: 20px;
       cursor: pointer;
-      transition: transform 0.1s ease; /* smooth press animation */
+      transition: transform 0.1s ease;
     }
 
-    /* Scale down on tap */
     .pressed {
       transform: scale(0.85);
+    }
+
+    /* Popup styles */
+    #popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px 50px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.5em;
+      color: black;
+      opacity: 0;
+      text-align: center;
+      z-index: 1000;
+      pointer-events: none;
+      transition: opacity 1s ease;
+    }
+
+    /* Show popup */
+    #popup.show {
+      opacity: 1;
     }
   </style>
 </head>
@@ -57,17 +83,24 @@
   <h1 class="animate__animated animate__fadeIn animate__zoomIn" id="birthdayText">Happy Birthday</h1>
   <img src="gift.png" alt="Gift Icon" class="animate__animated animate__fadeInUp animate__delay-1s" id="gift">
 
+  <!-- In-page popup -->
+  <div id="popup"></div>
+
   <!-- Canvas Confetti Script -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
   <script>
     const gift = document.getElementById('gift');
     const birthdayText = document.getElementById('birthdayText');
+    const popup = document.getElementById('popup');
 
-    let scale = 1; // current scale of the text
+    let scale = 1;
+    let tapCount = 0;
 
     gift.addEventListener('click', () => {
-      // Press animation for gift
+      tapCount++;
+
+      // Gift press animation
       gift.classList.add('pressed');
       setTimeout(() => gift.classList.remove('pressed'), 150);
 
@@ -81,9 +114,26 @@
       setTimeout(() => confetti({ particleCount: 100, spread: 70, origin: { y: 0.7 } }), 300);
       setTimeout(() => confetti({ particleCount: 80, spread: 100, origin: { y: 0.7 } }), 600);
 
-      // Grow the text slightly on each tap
-      scale += 0.1; // increase scale by 10%
+      // Grow text
+      scale += 0.1;
       birthdayText.style.transform = `scale(${scale})`;
+
+      // Show messages depending on tap count
+      if (tapCount === 2) {
+        popup.textContent = "I worked so hard for this";
+      } else if (tapCount === 3) {
+        popup.textContent = "Happy Birthday. Babeeee....";
+      } else if (tapCount === 5) {
+        popup.textContent = "Shoo… that’s it! Nothing more to see here 😜";
+      } else {
+        return; // no popup for other taps
+      }
+
+      // Show and fade out popup
+      popup.classList.add('show');
+      setTimeout(() => {
+        popup.classList.remove('show');
+      }, 3000);
     });
   </script>
 </body>
