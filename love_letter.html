@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Love Letter</title>
+  <title>Love Letter Boarding Pass</title>
 
-  <!-- Elegant fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
 
   <style>
     html, body {
@@ -19,10 +18,11 @@
       font-family: 'Playfair Display', serif;
     }
 
+    /* Letter container (scrollable) */
     .letter-container {
       display: flex;
       justify-content: center;
-      padding: 40px 20px 80px 20px; /* extra bottom padding */
+      padding: 40px 20px 120px 20px;
       box-sizing: border-box;
       height: 100%;
       overflow-y: auto;
@@ -47,60 +47,125 @@
       opacity: 0;
       transform: translateY(10px);
       transition: opacity 0.8s ease, transform 0.8s ease;
-      margin-bottom: 20px; /* space between lines */
+      margin-bottom: 20px;
     }
 
     .line.show {
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* Boarding pass in bottom-right */
+    #boardingPass {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 100px;
+      opacity: 0;
+      transform: translateY(50px) scale(0.5);
+      transition: all 1s ease-out;
+      z-index: 10;
+      cursor: pointer;
+    }
+
+    #boardingPass.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Card popup */
+    #cardPopup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.5);
+      background: white;
+      color: #255DCA;
+      padding: 30px 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      text-align: center;
+      opacity: 0;
+      transition: all 0.8s ease;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #cardPopup.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    #cardPopup img {
+      width: 200px;
+      margin-bottom: 15px;
+    }
+
+    #cardPopup p {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    /* Boarding pass tap animation */
+    #boardingPass.shrink {
+      transform: scale(0);
+      opacity: 0;
+      transition: all 0.8s ease;
+    }
   </style>
 </head>
 <body>
-  <div class="letter-container">
+
+  <div class="letter-container" id="letterContainer">
     <div class="letter" id="letter">
       <div class="greeting line">Hey you, birthday girl.</div>
-      <p class="line">
-        You didn’t think I’d just send a simple “happy birthday,” did you?<br>
-        You know me better than that.
-      </p>
-      <p class="line">
-        I’ve been staring at this screen for a while, trying to figure out how to fit everything I feel into words.<br>
-        Just a “Happy birthday” feels too small for what you mean to me.<br>
-        Because... you somehow make the ordinary feel like a dream that I never want to wake from.
-      </p>
-      <p class="line">
-        So… I made you something.<br><br>
-        But before you smile and think it’s just another cute message, let’s just say.... there’s a little more to this than meets the eye.
-      </p>
-      <p class="line">
-        You drive me insane sometimes, you know that?<br>
-        The way you still manage to get lost even with Google Maps guiding you — it’s almost a talent at this point.<br>
-        And somehow, it’s one of the million little things that make you you.<br><br>
-        You’re this mix of cute and chaos, soft and stubborn, smart but adorably clueless about the simplest things.<br>
-        I swear, sometimes I think the universe sent you just to balance me out — my quiet to your noise, my overthinking to your endless optimism.<br><br>
-        You make me believe in things I’d long stopped believing in.<br>
-        You remind me that not everything has to make sense to be beautiful... sometimes it just is.<br><br>
-        And that’s exactly what you are to me — beautiful, in all the ways that don’t need explaining.
-      </p>
-      <p class="line">
-        You know, bubu… thinking about you sometimes makes me imagine a whole world we could explore together.<br>
-        Every little thing about you — your laugh, your smile, even your adorable way of getting lost — makes me want to see it all over the world.<br><br>
-        So, I started daydreaming… about all the places I want to go with you.<br><br>
-        And I thought..........why not take you along on the journey — <br><strong>one little card at a time?</strong>
-      </p>
+      <p class="line">You didn’t think I’d just send a simple “happy birthday,” did you?<br>You know me better than that.</p>
+      <p class="line">I’ve been staring at this screen for a while, trying to figure out how to fit everything I feel into words.<br>Just a “Happy birthday” feels too small for what you mean to me.<br>Because... you somehow make the ordinary feel like a dream that I never want to wake from.</p>
+      <p class="line">So… I made you something.<br><br>But before you smile and think it’s just another cute message, let’s just say.... there’s a little more to this than meets the eye.</p>
+      <p class="line">You drive me insane sometimes, you know that?<br>The way you still manage to get lost even with Google Maps guiding you — it’s almost a talent at this point.<br>And somehow, it’s one of the million little things that make you you.<br><br>You’re this mix of cute and chaos, soft and stubborn, smart but adorably clueless about the simplest things.<br>I swear, sometimes I think the universe sent you just to balance me out — my quiet to your noise, my overthinking to your endless optimism.<br><br>You make me believe in things I’d long stopped believing in.<br>You remind me that not everything has to make sense to be beautiful... sometimes it just is.<br><br>And that’s exactly what you are to me — beautiful, in all the ways that don’t need explaining.</p>
+      <p class="line">You know, bubu… thinking about you sometimes makes me imagine a whole world we could explore together.<br>Every little thing about you — your laugh, your smile, even your adorable way of getting lost — makes me want to see it all over the world.<br><br>So, I started daydreaming… about all the places I want to go with you.<br><br>And I thought..........why not take you along on the journey — <br><strong>one little card at a time?</strong></p>
     </div>
   </div>
 
+  <img id="boardingPass" src="boarding_pass.png" alt="Boarding Pass">
+
+  <div id="cardPopup">
+    <img src="boarding_pass.png" alt="Boarding Pass">
+    <p>Boarding Pass Acquired</p>
+  </div>
+
   <script>
+    // Line reveal
     const lines = document.querySelectorAll('.line');
     let delay = 0;
-
-    lines.forEach((line, index) => {
+    lines.forEach((line) => {
       setTimeout(() => {
         line.classList.add('show');
       }, delay);
-      delay += 1500; // 1.5 seconds between each line
+      delay += 1500;
+    });
+
+    // Show boarding pass after last line + 3.5s
+    setTimeout(() => {
+      const bp = document.getElementById('boardingPass');
+      bp.classList.add('show');
+    }, delay + 3500);
+
+    // Boarding pass click event
+    const bp = document.getElementById('boardingPass');
+    const card = document.getElementById('cardPopup');
+
+    bp.addEventListener('click', () => {
+      // Shrink and hide boarding pass
+      bp.classList.add('shrink');
+
+      // Show card popup after a short delay
+      setTimeout(() => {
+        card.classList.add('show');
+      }, 500); // small delay for smoother transition
     });
   </script>
 </body>
