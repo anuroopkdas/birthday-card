@@ -36,6 +36,7 @@
       font-size: 2.5em;
       text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.6);
       margin: 0;
+      transition: transform 0.2s ease; /* smooth growth */
     }
 
     img {
@@ -43,11 +44,17 @@
       height: auto;
       margin-top: 20px;
       cursor: pointer;
+      transition: transform 0.1s ease; /* smooth press animation */
+    }
+
+    /* Scale down on tap */
+    .pressed {
+      transform: scale(0.85);
     }
   </style>
 </head>
 <body>
-  <h1 class="animate__animated animate__fadeIn animate__zoomIn">Happy Birthday</h1>
+  <h1 class="animate__animated animate__fadeIn animate__zoomIn" id="birthdayText">Happy Birthday</h1>
   <img src="gift.png" alt="Gift Icon" class="animate__animated animate__fadeInUp animate__delay-1s" id="gift">
 
   <!-- Canvas Confetti Script -->
@@ -55,19 +62,28 @@
 
   <script>
     const gift = document.getElementById('gift');
+    const birthdayText = document.getElementById('birthdayText');
+
+    let scale = 1; // current scale of the text
 
     gift.addEventListener('click', () => {
-      // Burst of confetti
+      // Press animation for gift
+      gift.classList.add('pressed');
+      setTimeout(() => gift.classList.remove('pressed'), 150);
+
+      // Confetti burst
       confetti({
         particleCount: 200,
         spread: 90,
         startVelocity: 50,
         origin: { y: 0.7 },
       });
-
-      // Small follow-up bursts for extra flair
       setTimeout(() => confetti({ particleCount: 100, spread: 70, origin: { y: 0.7 } }), 300);
       setTimeout(() => confetti({ particleCount: 80, spread: 100, origin: { y: 0.7 } }), 600);
+
+      // Grow the text slightly on each tap
+      scale += 0.1; // increase scale by 10%
+      birthdayText.style.transform = `scale(${scale})`;
     });
   </script>
 </body>
