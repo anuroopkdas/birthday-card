@@ -20,7 +20,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px 10px; /* added horizontal padding */
+      padding: 20px 10px;
       gap: 20px;
       box-sizing: border-box;
     }
@@ -35,7 +35,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 25px; /* added padding */
+      padding: 25px;
       transform: translateY(30px);
       opacity: 0;
       transition: transform 0.6s ease, opacity 0.6s ease;
@@ -58,7 +58,6 @@
       object-fit: contain;
     }
 
-    /* Modal background */
     .overlay {
       position: fixed;
       top: 0; left: 0;
@@ -68,25 +67,24 @@
       display: none;
       justify-content: center;
       align-items: center;
-      padding: 20px; /* added padding so popup doesn't touch screen edges */
+      padding: 20px;
       z-index: 10;
       animation: fadeIn 0.4s ease;
       box-sizing: border-box;
     }
 
-    /* Modal content */
     .popup {
       background: white;
       border-radius: 20px;
       max-width: 100%;
       width: 400px;
-      padding: 25px 20px; /* added extra padding for mobile */
+      padding: 25px 20px;
       box-shadow: 0 6px 20px rgba(0,0,0,0.2);
       text-align: center;
       animation: scaleIn 0.4s ease;
       box-sizing: border-box;
       overflow-y: auto;
-      max-height: 80vh; /* prevent popup from going offscreen */
+      max-height: 80vh;
     }
 
     .popup h2 {
@@ -132,9 +130,6 @@
     </div>
     <div class="place-card" data-place="Anfield">
       <img src="Anfield.png" alt="Anfield">
-    </div>
-    <div class="place-card" data-place="Amsterdam">
-      <img src="Amsterdam.png" alt="Amsterdam">
     </div>
   </div>
 
@@ -182,14 +177,6 @@ I’ll be screaming the anthem, and you’ll be beside me — rolling your eyes,
 But that’s okay — every moment there would be unforgettable because it’s with you.
 
 Surrounded by the sea of red, all I’ll see is you — and suddenly, nothing else matters.`
-      },
-      Amsterdam: {
-        title: "Canals, Clouds, and Us",
-        text: `I can picture us drifting through the canals of Amsterdam, bubu — a little high, a little lost, but completely at peace.
-
-No plans, no maps, no rush — just floating together, letting the world pass by.
-
-I don’t know when all of this will happen, but I do know one thing — every adventure feels right, every moment feels full, as long as it’s with you.`
       }
     };
 
