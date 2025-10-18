@@ -18,11 +18,11 @@
       font-family: 'Playfair Display', serif;
     }
 
-    /* Letter container (scrollable) */
+    /* Letter container */
     .letter-container {
       display: flex;
       justify-content: center;
-      padding: 40px 20px 120px 20px;
+      padding: 40px 20px 200px 20px; /* extra bottom space */
       box-sizing: border-box;
       height: 100%;
       overflow-y: auto;
@@ -55,7 +55,7 @@
       transform: translateY(0);
     }
 
-    /* Boarding pass in bottom-right */
+    /* Boarding pass */
     #boardingPass {
       position: fixed;
       bottom: 20px;
@@ -73,7 +73,13 @@
       transform: translateY(0) scale(1);
     }
 
-    /* Card popup */
+    #boardingPass.shrink {
+      transform: scale(0);
+      opacity: 0;
+      transition: all 0.8s ease;
+    }
+
+    /* Popup card */
     #cardPopup {
       position: fixed;
       top: 50%;
@@ -109,11 +115,43 @@
       margin: 0;
     }
 
-    /* Boarding pass tap animation */
-    #boardingPass.shrink {
-      transform: scale(0);
-      opacity: 0;
-      transition: all 0.8s ease;
+    /* Question and buttons */
+    #cardPopup .question {
+      font-size: 1.3em;
+      margin: 15px 0 10px 0;
+      font-weight: bold;
+      color: #255DCA;
+    }
+
+    #cardPopup .buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    #cardPopup .btn {
+      padding: 8px 16px;
+      border-radius: 12px;
+      border: none;
+      font-weight: bold;
+      font-size: 1em;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    #cardPopup .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    #cardPopup .btn.green {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    #cardPopup .btn.blue {
+      background-color: #2196F3;
+      color: white;
     }
   </style>
 </head>
@@ -130,11 +168,18 @@
     </div>
   </div>
 
+  <!-- Boarding pass icon -->
   <img id="boardingPass" src="boarding_pass.png" alt="Boarding Pass">
 
+  <!-- Card popup -->
   <div id="cardPopup">
     <img src="boarding_pass.png" alt="Boarding Pass">
     <p>Boarding Pass Acquired</p>
+    <p class="question">Ready to fly, love?</p>
+    <div class="buttons">
+      <button class="btn green">Yesshh</button>
+      <button class="btn blue">Yes</button>
+    </div>
   </div>
 
   <script>
@@ -148,25 +193,47 @@
       delay += 1500;
     });
 
-    // Show boarding pass after last line + 3.5s
-    setTimeout(() => {
-      const bp = document.getElementById('boardingPass');
-      bp.classList.add('show');
-    }, delay + 3500);
-
-    // Boarding pass click event
     const bp = document.getElementById('boardingPass');
     const card = document.getElementById('cardPopup');
+    const container = document.getElementById('letterContainer');
+    let hasShown = false;
+    let scrollTimeout;
 
+    // Show boarding pass 5 seconds after user scrolls to bottom
+    container.addEventListener('scroll', () => {
+      if (hasShown) return;
+      clearTimeout(scrollTimeout);
+
+      const nearBottom =
+        container.scrollTop + container.clientHeight >= container.scrollHeight - 10;
+
+      if (nearBottom) {
+        scrollTimeout = setTimeout(() => {
+          bp.classList.add('show');
+          hasShown = true;
+        }, 5000);
+      }
+    });
+
+    // Boarding pass click → shrink + show card
     bp.addEventListener('click', () => {
-      // Shrink and hide boarding pass
       bp.classList.add('shrink');
-
-      // Show card popup after a short delay
       setTimeout(() => {
         card.classList.add('show');
-      }, 500); // small delay for smoother transition
+      }, 500);
     });
+
+    // Optional: button click interactions
+    const greenBtn = document.querySelector('.btn.green');
+    const blueBtn = document.querySelector('.btn.blue');
+
+    greenBtn.addEventListener('click', () => {
+  window.location.href = 'journey.html';
+});
+blueBtn.addEventListener('click', () => {
+  window.location.href = 'journey.html';
+});
+
   </script>
 </body>
 </html>
