@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Journey Selection</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <title>Our Journey</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      width: 100%;
       height: 100%;
-      font-family: 'Playfair Display', serif;
-      background-color: #ECEFF1;
-      overflow-y: auto; /* Make vertically scrollable */
+      width: 100%;
+      background-color: #E3F2FD; /* Soft material blue */
+      font-family: 'Inter', sans-serif;
+      overflow-y: auto;
     }
 
     .grid {
@@ -22,70 +22,182 @@
       align-items: center;
       padding: 20px;
       gap: 20px;
-      box-sizing: border-box;
     }
 
     .place-card {
-      width: 90%; /* Fit device width with margin */
+      width: 90%;
       max-width: 400px;
       background: white;
-      border-radius: 15px;
+      border-radius: 20px;
       overflow: hidden;
-      text-align: center;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
       padding: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
     .place-card:hover {
-      transform: scale(1.02);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      transform: scale(1.03);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.2);
     }
 
     .place-card img {
       width: 100px;
       height: 100px;
       object-fit: contain;
-      margin-bottom: 10px;
     }
 
-    .place-card p {
-      margin: 0;
-      font-weight: bold;
-      font-size: 1.1em;
+    /* Modal background */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      z-index: 10;
+      animation: fadeIn 0.4s ease;
+    }
+
+    /* Modal content */
+    .popup {
+      background: white;
+      border-radius: 20px;
+      max-width: 90%;
+      width: 400px;
+      padding: 25px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      text-align: center;
+      animation: scaleIn 0.4s ease;
+    }
+
+    .popup h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 1.4em;
+      color: #255dca;
+      margin-bottom: 15px;
+    }
+
+    .popup p {
+      font-size: 1em;
+      line-height: 1.6;
       color: #333;
+      white-space: pre-line;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    @keyframes scaleIn {
+      from {transform: scale(0.8); opacity: 0;}
+      to {transform: scale(1); opacity: 1;}
     }
   </style>
 </head>
 <body>
 
   <div class="grid">
-    <div class="place-card">
-      <img src="Amsterdam.png" alt="Amsterdam">
-      <p>Amsterdam</p>
-    </div>
-    <div class="place-card">
-      <img src="Anfield.png" alt="Anfield">
-      <p>Anfield</p>
-    </div>
-    <div class="place-card">
+    <div class="place-card" data-place="Hawaii">
       <img src="Hawaii.png" alt="Hawaii">
-      <p>Hawaii</p>
     </div>
-    <div class="place-card">
-      <img src="Catalonia.png" alt="Catalonia">
-      <p>Catalonia</p>
-    </div>
-    <div class="place-card">
+    <div class="place-card" data-place="Paris">
       <img src="Paris.png" alt="Paris">
-      <p>Paris</p>
+    </div>
+    <div class="place-card" data-place="Aurora">
+      <img src="Aurora.png" alt="Aurora">
+    </div>
+    <div class="place-card" data-place="Catalonia">
+      <img src="Catalonia.png" alt="Catalonia">
+    </div>
+    <div class="place-card" data-place="Anfield">
+      <img src="Anfield.png" alt="Anfield">
+    </div>
+    <div class="place-card" data-place="Amsterdam">
+      <img src="Amsterdam.png" alt="Amsterdam">
     </div>
   </div>
+
+  <!-- Popup Modal -->
+  <div class="overlay" id="overlay">
+    <div class="popup" id="popup">
+      <h2 id="popupTitle"></h2>
+      <p id="popupText"></p>
+    </div>
+  </div>
+
+  <script>
+    const places = {
+      Hawaii: {
+        title: "Somewhere in Hawaii",
+        text: `I imagine us on a quiet, hidden beach somewhere in Hawai‘i... no crowds, no noise, just the two of us and the endless ocean.
+        
+You’d probably try to race me to the water and somehow still get lost along the way. 
+We’d lie on the sand, listening to the waves, talking about nothing, laughing about everything, and just soaking in those precious moments.`
+      },
+      Paris: {
+        title: "Midnight in the City of Lights",
+        text: `I keep imagining us in Paris, standing beneath the Eiffel Tower as the city of lights glows around us. 
+
+At midnight, the streets shimmer and whisper, and I can already see you getting lost in them, while I chase after you, laughing the whole way.`
+      },
+      Aurora: {
+        title: "When the Sky Falls in Love",
+        text: `I want to stand with you under the northern lights, feeling the cold on our cheeks and your hand in mine. 
+
+As the sky falls in love above us, I dream of being with you, feeling the warmth of your hand in mine, and knowing that these are the moments to live for.`
+      },
+      Catalonia: {
+        title: "Lost in Catalonia",
+        text: `I see us wandering through the streets of Barcelona, and of course, you somehow manage to get us lost... again.
+
+No matter where we end up, bubu, getting lost with you is the best part of the journey.`
+      },
+      Anfield: {
+        title: "Lost Among the Reds",
+        text: `Someday, I’m taking you to Anfield, bubu.
+
+I’ll be screaming the anthem, and you’ll be beside me  rolling your eyes, distracted by the beauty, and maybe getting us lost finding our seats. (not again!)
+
+But that’s okay... every moment there would be unforgettable because it’s with you.
+
+Surrounded by the sea of red, all I’ll see is you... and suddenly, nothing else matters.`
+      },
+      Amsterdam: {
+        title: "Canals, Clouds, and Us",
+        text: `I can picture us drifting through the canals of Amsterdam, bubu.... a little high, a little lost, but completely at peace.
+
+No plans, no maps, no rush... just floating together, letting the world pass by.
+
+I don’t know when all of this will happen, but I do know one thing... every adventure feels right, every moment feels full, as long as it’s with you.`
+      }
+    };
+
+    const cards = document.querySelectorAll('.place-card');
+    const overlay = document.getElementById('overlay');
+    const popupTitle = document.getElementById('popupTitle');
+    const popupText = document.getElementById('popupText');
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const place = card.getAttribute('data-place');
+        popupTitle.textContent = places[place].title;
+        popupText.textContent = places[place].text;
+        overlay.style.display = 'flex';
+      });
+    });
+
+    overlay.addEventListener('click', () => {
+      overlay.style.display = 'none';
+    });
+  </script>
 
 </body>
 </html>
