@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caesar Clue</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, #F3E5F5 0%, #fff 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 30px 20px;
+      box-sizing: border-box;
+      color: #2c3e50;
+    }
+
+    .spotify-icon {
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      margin-bottom: 25px;
+    }
+
+    .hint {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3em;
+      color: #255dca;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .encoded-text {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      font-family: monospace;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Spotify Icon -->
+  <img src="spotify.png" alt="Spotify Icon" class="spotify-icon" id="spotifyLink">
+
+  <!-- Hint -->
+  <div class="hint">Caesar hit a 6</div>
+
+  <!-- Encoded Text -->
+  <div class="encoded-text">
+Cnkt ck ckxk payz lgrrotm ot rubk, O aykj zu royzkt zu yutmy gtj cutjkx cngz oz cuarj lkkr roqk zu ngbk eua hkyojk sk, zu robk znuyk rexoiy otyzkgj ul payz jxkgsotm znks....
+
+Znuyk ygsk yutmy yuatj jollkxktz tuc… hkigayk O tu rutmkx ngbk zu nuvk ux osgmotk. Yusknuc, rolk luatj ozy cge  gtj oz rkj sk yzxgomnz zu eua. 💞
+
+Yu, O cktz hgiq zu znuyk yutmy zngz utik nkrj se coynky gtj sgjk yuskznotm yvkiogr .... g vrgeroyz, payz lux eua’.
+
+Haz zu lotj oz, znkxk’y yzorr g rozzrk suxk ul znk natz rklz.
+
+Cnkt eua’xk ot juahz, xkskshkx: znk loxyz rkzzkxy grcgey qtuc znk cge.
+
+Mu hgiq zu cnkxk oz grr hkmgt, gtj eua’rr lotj znk ruiq zngz rkgjy eua zu znk xkgr utk — znk utk zngz’y uaxy.
+  </div>
+
+  <script>
+  const spotifyLink = document.getElementById('spotifyLink');
+  spotifyLink.addEventListener('click', () => {
+    window.location.href = 'https://spotify.link/R1dwClDMAXb';
+  });
+</script>
+
+
+</body>
+</html>
