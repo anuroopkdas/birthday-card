@@ -11,7 +11,7 @@
       padding: 0;
       height: 100%;
       width: 100%;
-      background-color: #E3F2FD; /* Soft material blue */
+      background-color: #E3F2FD;
       font-family: 'Inter', sans-serif;
       overflow-y: auto;
     }
@@ -20,13 +20,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px 10px 150px 10px; /* increased bottom padding */
+      padding: 20px 10px 150px 10px;
       gap: 20px;
       box-sizing: border-box;
     }
 
     .place-card {
-      width: 90vw; /* responsive width */
+      width: 90vw;
       max-width: 400px;
       background: white;
       border-radius: 20px;
@@ -35,7 +35,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 25px; /* inner padding */
+      padding: 25px;
       transform: translateY(30px);
       opacity: 0;
       transition: transform 0.6s ease, opacity 0.6s ease;
@@ -86,7 +86,7 @@
       animation: scaleIn 0.4s ease;
       box-sizing: border-box;
       overflow-y: auto;
-      max-height: 80vh; /* prevent overflow */
+      max-height: 80vh;
     }
 
     .popup h2 {
@@ -102,6 +102,47 @@
       line-height: 1.6;
       color: #333;
       white-space: pre-line;
+    }
+
+    /* Final message section */
+    .final-message {
+      display: none;
+      text-align: center;
+      margin-top: 40px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .final-message.visible {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .final-message p {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2em;
+      color: #2c3e50;
+      margin: 0;
+    }
+
+    .final-message button {
+      background: #255dca;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      padding: 10px 25px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .final-message button:hover {
+      background: #1a47a0;
     }
 
     @keyframes fadeIn {
@@ -135,6 +176,12 @@
     </div>
     <div class="place-card" data-place="Amsterdam">
       <img src="Amsterdam.png" alt="Amsterdam">
+    </div>
+
+    <!-- Final message -->
+    <div class="final-message" id="finalMessage">
+      <p>Seems like we’ve wandered through dreamland long enough, love.<br>Shall we head back to reality — hand in hand?</p>
+      <button onclick="window.location.href='love_letter_part2.html?continue=true'">Back to Reality</button>
     </div>
   </div>
 
@@ -197,6 +244,9 @@ I don’t know when all of this will happen, but I do know one thing — every a
     const overlay = document.getElementById('overlay');
     const popupTitle = document.getElementById('popupTitle');
     const popupText = document.getElementById('popupText');
+    const finalMessage = document.getElementById('finalMessage');
+
+    let openedPlaces = new Set();
 
     // Show popup on tap
     cards.forEach(card => {
@@ -205,6 +255,15 @@ I don’t know when all of this will happen, but I do know one thing — every a
         popupTitle.textContent = places[place].title;
         popupText.textContent = places[place].text;
         overlay.style.display = 'flex';
+        openedPlaces.add(place);
+
+        // Show final message if all have been opened
+        if (openedPlaces.size === Object.keys(places).length) {
+          setTimeout(() => {
+            finalMessage.classList.add('visible');
+            finalMessage.scrollIntoView({ behavior: 'smooth' });
+          }, 800);
+        }
       });
     });
 
@@ -224,7 +283,7 @@ I don’t know when all of this will happen, but I do know one thing — every a
     }
 
     window.addEventListener('scroll', revealOnScroll);
-    window.addEventListener('load', revealOnScroll); // reveal visible cards on load
+    window.addEventListener('load', revealOnScroll);
   </script>
 
 </body>
