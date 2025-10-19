@@ -227,12 +227,18 @@
     const greenBtn = document.querySelector('.btn.green');
     const blueBtn = document.querySelector('.btn.blue');
 
-    greenBtn.addEventListener('click', () => {
-  window.location.href = 'journey.html';
-});
-blueBtn.addEventListener('click', () => {
-  window.location.href = 'journey.html';
-});
+    function closeCardAndGo() {
+  card.classList.remove('show');        // start fade/shrink animation
+  card.style.transform = 'translate(-50%, -50%) scale(0.5)';
+  card.style.opacity = '0';
+  setTimeout(() => {
+    window.location.href = 'journey.html';  // redirect after animation
+  }, 800); // wait for animation to finish
+}
+
+greenBtn.addEventListener('click', closeCardAndGo);
+blueBtn.addEventListener('click', closeCardAndGo);
+
 
   </script>
 </body>
