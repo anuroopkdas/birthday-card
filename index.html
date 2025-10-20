@@ -61,24 +61,28 @@
 
     /* Popup styles */
     #popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255, 255, 255, 0.95);
-      padding: 30px 50px;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: 1.5em;
-      color: black;
-      opacity: 0;
-      text-align: center;
-      z-index: 1000;
-      pointer-events: none;
-      transition: opacity 1s ease;
-    }
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px; /* slight padding */
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.5em;
+  color: black;
+  opacity: 0;
+  text-align: center;
+  z-index: 1000;
+  pointer-events: none;
+  transition: opacity 1s ease;
+  width: calc(100% - 40px); /* almost full width, 20px padding each side */
+  max-width: 600px; /* optional: limit max width on large screens */
+  box-sizing: border-box; /* ensures padding doesn't add to width */
+}
+
 
     #popup.show {
       opacity: 1;
@@ -194,7 +198,7 @@
           loveLetter.classList.add('show');
         }
 
-      }, 2500);
+      }, 4000);
     });
 
     // Love letter click behavior with bounce
@@ -211,4 +215,3 @@
   </script>
 </body>
 </html>
-
