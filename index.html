@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday</title>
+  <title>Happy Birthday Babee</title>
 
   <!-- Elegant Font -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
@@ -19,8 +19,15 @@
       overflow: hidden;
     }
 
+    /* 🌈 Aurora Dream Soft Harmony gradient */
     body {
-      background: url('background.jpg') no-repeat center center fixed;
+      background: 
+        radial-gradient(ellipse 80% 60% at 60% 20%, rgba(175, 109, 255, 0.50), transparent 65%),
+        radial-gradient(ellipse 70% 60% at 20% 80%, rgba(255, 100, 180, 0.45), transparent 65%),
+        radial-gradient(ellipse 60% 50% at 60% 65%, rgba(255, 235, 170, 0.43), transparent 62%),
+        radial-gradient(ellipse 65% 40% at 50% 60%, rgba(120, 190, 255, 0.48), transparent 68%),
+        linear-gradient(180deg, #f7eaff 0%, #fde2ea 100%);
+      background-attachment: fixed;
       background-size: cover;
       display: flex;
       flex-direction: column;
@@ -85,7 +92,7 @@
       bottom: 20px;
       right: 20px;
       opacity: 0;
-      transform: translate(50px, 50px); /* start slightly offscreen */
+      transform: translate(50px, 50px);
       transition: all 1s ease;
       z-index: 1001;
       cursor: pointer;
@@ -93,7 +100,7 @@
 
     #loveLetter.show {
       opacity: 1;
-      transform: translate(0, 0); /* animate into place */
+      transform: translate(0, 0);
     }
   </style>
 </head>
@@ -121,65 +128,85 @@
     let disabled = false;
 
     const messages = {
-      1: "Happy Birthday! 🎉",
-      2: "I worked so hard for this just for you 😏",
-      3: "Happy Birthday, babeeee… 🥰",
-      4: "You’re tapping me a lot… are you excited? 😜",
-      5: "Shoo… that’s it! Nothing more to see here… or is it? 🤔",
-      6: "Oh no… not again! 😤",
-      7: "Seriously, you’re testing me! 😅",
-      8: "Ugh… okay, fine… maybe just a little more 😏",
-      9: "You’re lucky… I do have a secret or two 💖",
-      10: "Fineee… here you go 😏💖"
+      1: "Well, well… look who’s eager! 👀 Can you handle what’s coming?",
+      2: "Not gonna lie, halfway through I almost gave up and just sent cake emojis 🎂😂",
+      3: "Okay okay… Happy Birthday, my favourite human 💖",
+      4: "Slow down… the page isn’t ready for your level of cuteness 😳",
+      5: "You’re tapping like you’re trying to unlock a secret level 😜",
+      6: "That’s it… really… you can stop tapping now… or not 😉",
+      7: "Wow, you’re still here?",
+      8: "You’re relentless… but also kind of adorable 😏",
+      9: "Was gonna hide this forever… but your tapping skills are dangerously impressive 😏💖",
+      10: "Here’s the final masterpiece, made with love, caffeine, and just a hint of madness 😘💌"
     };
+
+    const bonusMessages = [
+      "You've officially unlocked: “Professional Tapper of Things That Say Stop Tapping” 🏆",
+      "Babe… are you trying to break through to another dimension? 🌌",
+      "Stoppp you’re making the code cry 😭",
+      "The gift box just sent a resignation letter. One more tap and it’s gone 🎁💥 All done… the gift box officially quit its job!"
+    ];
+
+    let bonusIndex = 0;
 
     gift.addEventListener('click', () => {
       if (disabled) return;
       tapCount++;
       disabled = true;
 
-      // Gift press animation
       gift.classList.add('pressed');
       setTimeout(() => gift.classList.remove('pressed'), 150);
 
-      // Only do confetti and text growth if tapCount <= 10
-      if (tapCount <= 10) {
-        confetti({
-          particleCount: 200,
-          spread: 90,
-          startVelocity: 50,
-          origin: { y: 0.7 },
-        });
+      // Confetti logic
+      if (tapCount < 10) {
+        confetti({ particleCount: 200, spread: 90, startVelocity: 50, origin: { y: 0.7 } });
         setTimeout(() => confetti({ particleCount: 100, spread: 70, origin: { y: 0.7 } }), 300);
         setTimeout(() => confetti({ particleCount: 80, spread: 100, origin: { y: 0.7 } }), 600);
+      } else if (tapCount >= 10 && tapCount < 14) {
+        confetti({ particleCount: 80, spread: 70, startVelocity: 40, origin: { y: 0.7 } });
+        setTimeout(() => confetti({ particleCount: 50, spread: 50, origin: { y: 0.7 } }), 200);
+      }
+      // No confetti on last bonus tap (tap 14)
 
+      if (tapCount <= 10) {
         scale += 0.1;
         birthdayText.style.transform = `scale(${scale})`;
       }
 
-      // Show popup if message exists
-      if (messages[tapCount]) {
-        popup.textContent = messages[tapCount];
-        popup.classList.add('show');
-
-        setTimeout(() => {
-          popup.classList.remove('show');
-          disabled = false;
-
-          // On 10th tap, animate love letter into place
-          if (tapCount === 10) {
-            loveLetter.classList.add('show');
-          }
-
-        }, 2000);
+      let currentMessage = "";
+      if (tapCount <= 10 && messages[tapCount]) {
+        currentMessage = messages[tapCount];
+      } else if (tapCount > 10 && bonusIndex < bonusMessages.length) {
+        currentMessage = bonusMessages[bonusIndex];
+        bonusIndex++;
       } else {
-        disabled = false;
+        currentMessage = "Alright… now the gift box is REALLY done 😆";
       }
+
+      popup.textContent = currentMessage;
+      popup.classList.add('show');
+
+      setTimeout(() => {
+        popup.classList.remove('show');
+        disabled = false;
+
+        if (tapCount === 10) {
+          loveLetter.classList.add('show');
+        }
+
+      }, 2500);
     });
 
-    // Love letter click -> go to new page
+    // Love letter click behavior with bounce
     loveLetter.addEventListener('click', () => {
-      window.location.href = 'love_letter.html';
+      loveLetter.style.transition = "transform 0.2s ease";
+      loveLetter.style.transform = "scale(1.2)";
+      setTimeout(() => {
+        loveLetter.style.transform = "scale(1)";
+        setTimeout(() => {
+          window.location.href = 'love_letter.html';
+        }, 100);
+      }, 200);
     });
   </script>
 </body>
