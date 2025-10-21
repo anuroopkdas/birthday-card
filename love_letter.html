@@ -14,20 +14,28 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      background-color: #255DCA;
       font-family: 'Playfair Display', serif;
+      /* Aurora Background */
+      background:
+        radial-gradient(ellipse 120% 80% at 70% 20%, rgba(255, 20, 147, 0.15), transparent 50%),
+        radial-gradient(ellipse 100% 60% at 30% 10%, rgba(0, 255, 255, 0.12), transparent 60%),
+        radial-gradient(ellipse 90% 70% at 50% 0%, rgba(138, 43, 226, 0.18), transparent 65%),
+        radial-gradient(ellipse 110% 50% at 80% 30%, rgba(255, 215, 0, 0.08), transparent 40%),
+        #000000;
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: white;
     }
 
     /* Letter container */
     .letter-container {
       display: flex;
       justify-content: center;
-      padding: 40px 20px 200px 20px; /* extra bottom space */
+      padding: 40px 20px 300px 20px; /* extra bottom space */
       box-sizing: border-box;
       height: 100%;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      color: white;
     }
 
     .letter {
@@ -97,6 +105,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      max-width: 90vw;
     }
 
     #cardPopup.show {
@@ -105,7 +114,8 @@
     }
 
     #cardPopup img {
-      width: 200px;
+      width: 80%;
+      max-width: 250px;
       margin-bottom: 15px;
     }
 
@@ -160,11 +170,24 @@
   <div class="letter-container" id="letterContainer">
     <div class="letter" id="letter">
       <div class="greeting line">Hey you, birthday girl.</div>
-      <p class="line">You didn’t think I’d just send a simple “happy birthday,” did you?<br>You know me better than that.</p>
-      <p class="line">I’ve been staring at this screen for a while, trying to figure out how to fit everything I feel into words.<br>Just a “Happy birthday” feels too small for what you mean to me.<br>Because... you somehow make the ordinary feel like a dream that I never want to wake from.</p>
-      <p class="line">So… I made you something.<br><br>But before you smile and think it’s just another cute message, let’s just say.... there’s a little more to this than meets the eye.</p>
-      <p class="line">You drive me insane sometimes, you know that?<br>The way you still manage to get lost even with Google Maps guiding you — it’s almost a talent at this point.<br>And somehow, it’s one of the million little things that make you you.<br><br>You’re this mix of cute and chaos, soft and stubborn, smart but adorably clueless about the simplest things.<br>I swear, sometimes I think the universe sent you just to balance me out — my quiet to your noise, my overthinking to your endless optimism.<br><br>You make me believe in things I’d long stopped believing in.<br>You remind me that not everything has to make sense to be beautiful... sometimes it just is.<br><br>And that’s exactly what you are to me — beautiful, in all the ways that don’t need explaining.</p>
-      <p class="line">You know, bubu… thinking about you sometimes makes me imagine a whole world we could explore together.<br>Every little thing about you — your laugh, your smile, even your adorable way of getting lost — makes me want to see it all over the world.<br><br>So, I started daydreaming… about all the places I want to go with you.<br><br>And I thought..........why not take you along on the journey — <br><strong>one little card at a time?</strong></p>
+
+      <p class="line">You thought you’d just get a “happy birthday”?<br>That’s cute. Almost as cute as you thinking I could ever keep it short when it comes to you. 💋</p>
+
+      <p class="line">I’ve been staring at this screen for way too long, trying to fit everything I feel into words — and somehow, it still doesn’t feel like enough.<br>Somehow, you make life feel exciting, even when we’re doing absolutely nothing — and I love it.</p>
+
+      <p class="line">So… I made you something.<br>And before you start thinking “aww, how thoughtful,” just know — I may have gone way overboard.<br>But you’re worth it, obviously.</p>
+
+      <p class="line">You somehow manage to drive me insane and make me smile at the same time.<br>Like, how is it possible to get lost with Google Maps literally guiding you step by step?<br>It’s impressive… and infuriatingly adorable.</p>
+
+      <p class="line">You’re this hilarious contradiction — smart enough to ace anything, but somehow still clueless about the simplest things.<br>Ice cream over bus fare? 10/10 decision-making. I respect the priorities. 🍦😆</p>
+
+      <p class="line">You somehow make me believe in things I thought I’d stopped believing in.<br>Being around you feels like finally finding a home I didn’t know I was searching for.<br>You remind me that not everything needs a reason to be beautiful — sometimes, it just is.</p>
+
+      <p class="line">There was a time when my daydreams were full of places I longed to explore… but I never imagined sharing them with anyone.<br>But after you, every time I close my eyes, it’s not just the destinations I see — it’s you and me, hand in hand, wandering through it all.</p>
+
+      <p class="line">Then it hit me… why just dream about it?<br>Picture it: us, exploring the world together, me probably getting frustrated while you somehow still manage to get lost… again. 😆<br>Honestly, I can’t think of anyone else I’d rather get lost with.</p>
+
+      <p class="line"><strong>Don’t just sit there reading — hop on! Come along for the ride, because the best stories are the ones we make ourselves.</strong></p>
     </div>
   </div>
 
@@ -190,7 +213,7 @@
       setTimeout(() => {
         line.classList.add('show');
       }, delay);
-      delay += 1500;
+      delay += 1000;
     });
 
     const bp = document.getElementById('boardingPass');
@@ -223,23 +246,21 @@
       }, 500);
     });
 
-    // Optional: button click interactions
+    // Button click interactions
     const greenBtn = document.querySelector('.btn.green');
     const blueBtn = document.querySelector('.btn.blue');
 
     function closeCardAndGo() {
-  card.classList.remove('show');        // start fade/shrink animation
-  card.style.transform = 'translate(-50%, -50%) scale(0.5)';
-  card.style.opacity = '0';
-  setTimeout(() => {
-    window.location.href = 'journey.html';  // redirect after animation
-  }, 800); // wait for animation to finish
-}
+      card.classList.remove('show');
+      card.style.transform = 'translate(-50%, -50%) scale(0.5)';
+      card.style.opacity = '0';
+      setTimeout(() => {
+        window.location.href = 'journey.html';
+      }, 800);
+    }
 
-greenBtn.addEventListener('click', closeCardAndGo);
-blueBtn.addEventListener('click', closeCardAndGo);
-
-
+    greenBtn.addEventListener('click', closeCardAndGo);
+    blueBtn.addEventListener('click', closeCardAndGo);
   </script>
 </body>
 </html>
