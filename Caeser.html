@@ -165,23 +165,23 @@
 
   <!-- Message -->
   <div class="message-box">
-    <p>When we were just falling in love, I used to listen to songs and wonder what it would feel like to have you beside me — to live those lyrics instead of just dreaming them.</p>
+    <p>In the beginning, when we were just falling in love, I used to listen to songs and wonder what it would feel like to have you beside me.. to live those lyrics instead of just dreaming them.</p>
 
-    <p>Now those same songs sound different… because I don’t have to imagine anymore. Somehow, life found its way — and it led me straight to you. 💞</p>
+    <p>Now those same songs sound different… because I don’t have to imagine anymore. Somehow, life found its way.. and it led me straight to you. 💞</p>
 
-    <p>So, I went back to the songs that once held my wishes and turned them into something special — a playlist, made just for you.</p>
+    <p>So, I went back to the songs that once held my wishes and turned them into something special.. a playlist, made just for you.</p>
 
     <p>I actually had so much more planned for this little adventure, but due to some <em>unforeseen technical drama</em> (aka my laptop charger deciding to retire early 😅), I had to cut short a few parts of the treasure hunt.</p>
 
-    <p>But the heart of it is still here — and so is your final clue.</p>
+    <p>But the heart of it is still here...and so is your final clue.</p>
 
     <p style="margin-top: 20px; font-weight: bold;">There’s more to the playlist than meets the ear.</p>
 
     <p style="margin-top: 10px; font-style: italic;">Above these words plays a small symphony of clues.<br>
     Follow the first notes, the first letters… they’ll lead you home to the key that opens the <span class="highlight" id="lockWord">lock</span>.</p>
 
-    <p style="margin-top: 20px;">I know it looks like just another playlist — but you know me, I couldn’t resist hiding something. 😏<br>
-    Pay attention to the songs. They’ve been trying to tell you something all along.</p>
+    <p style="margin-top: 20px;">I know it looks like just another playlist.. but you know me, I couldn’t resist hiding something. 😏<br>
+    Pay attention to the SONGS. They’ve been trying to tell you something all along.</p>
   </div>
 
   <!-- Key Input Popup -->
@@ -219,6 +219,8 @@
     const closeClosingPopup = document.getElementById('closeClosingPopup');
     const closeKeyPopup = document.getElementById('closeKeyPopup');
 
+    let keyUnlocked = false; // Flag to prevent asking for key again
+
     // Tap "lock"
     lockWord.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -227,14 +229,17 @@
 
     // Tap Spotify lock icon to enter key
     spotifyLock.addEventListener('click', () => {
-      keyPopup.style.display = 'flex';
-      keyInput.value = '';
-      keyInput.focus();
+      if(!keyUnlocked){
+        keyPopup.style.display = 'flex';
+        keyInput.value = '';
+        keyInput.focus();
+      }
     });
 
     // Submit key
     submitKey.addEventListener('click', () => {
-      if(keyInput.value.toLowerCase() === 'love') {
+      if(keyInput.value.toLowerCase() === 'love'){
+        keyUnlocked = true; // set flag so it won't ask again
         spotifyLock.src = 'Spotifytrue.png';
         spotifyLock.classList.add('pulse'); // make it pulse
         keyPopup.style.display = 'none';
