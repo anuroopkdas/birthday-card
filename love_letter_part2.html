@@ -1,16 +1,17 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Love Letter - Part 2</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
       background: linear-gradient(180deg, #E3F2FD 0%, #fefefe 100%);
-      font-family: 'Inter', sans-serif;
+      font-family: 'Playfair Display', serif;
       color: #2c3e50;
       display: flex;
       justify-content: center;
@@ -27,13 +28,12 @@
       box-shadow: 0 8px 25px rgba(0,0,0,0.1);
       max-width: 600px;
       width: 100%;
-      padding: 35px 25px;
+      padding: 35px 25px 50px 25px;
       text-align: left;
       animation: fadeIn 1s ease forwards;
     }
 
     h1 {
-      font-family: 'Playfair Display', serif;
       font-weight: 600;
       color: #255dca;
       font-size: 1.8em;
@@ -53,13 +53,12 @@
     }
 
     .highlight {
-      color: #e91e63; /* pink highlight */
+      color: #e91e63;
       font-weight: bold;
     }
 
     .signature {
       margin-top: 25px;
-      font-family: 'Playfair Display', serif;
       font-size: 1.1em;
       text-align: right;
       color: #255dca;
@@ -67,6 +66,7 @@
 
     .lock-container {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       gap: 15px;
@@ -85,77 +85,104 @@
       transform: scale(1.1);
     }
 
+    #keyInput {
+      display: none;
+      margin-top: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #255dca;
+      font-size: 1em;
+      width: 200px;
+      text-align: center;
+    }
+
+    #unlockButton {
+      display: none;
+      margin-top: 8px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: none;
+      background-color: #255dca;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    #unlockButton:hover {
+      background-color: #1a47a0;
+    }
+
     @keyframes fadeIn {
       from {opacity: 0; transform: translateY(20px);}
       to {opacity: 1; transform: translateY(0);}
     }
   </style>
 </head>
-<body>
 
+<body>
   <div class="letter-container" id="letter">
     <h1>My Love,</h1>
 
     <p id="letterText">
-Bubu… I hope you loved our little journey around the world.... but today isn’t just about dreaming.
+I hope our little journey around the world made you smile — it wasn’t just about places, it was about us, and everything we’ve grown into.
 
-It’s about stepping into the magic, chasing the moments that make our hearts race.
+But today isn’t just about dreaming.
+It’s about us… celebrating you, your smile, your heart, and every little thing that makes you so wonderfully you.
 
-<span class="key-hint">Look closely, there’s a tiny key hidden in the words — it’ll unlock the lock waiting below.</span>
+And just like every little detail that makes you special, there’s a tiny key hidden in these words.. waiting to unlock something just for you.
 
-Bring your inner Sherlock… I brewed up my overthinking, slightly chaotic, hyper-caffeinated detective vibes while making this for you.
+I may have gone a little overboard… but can you blame me? It’s your birthday after all. 🎉❤️
 
-Look closely, trust your instincts, and remember: sometimes the directions aren’t on any map… they’re tucked away in the little things you notice — or in the heartbeats that make you smile. 💫
+We were never meant to grow this close, and yet, through a series of perfect little coincidences, life somehow found a way to bring us together. Every laugh we’ve shared, every little moment feels like a gift I get to unwrap over and over again.
 
-Before my thoughts turn into butterflies again, I need to say this:
-
-I’m an absolute mess without you bubu...
-
-Life feels off balance, a bit lost, and nothing really makes sense when you’re not around.
-That’s why I need you... to stay beside me, to keep me grounded, to hold my hand through the chaos, and to remind me to keep growing, loving, and becoming better every day.
-
-This is just the beginning of your birthday adventure — so smile, get curious, and enjoy the ride, because I made it all just for you.
-
-So… here’s to love, to growing together, to laughter and chaos, and to every beautiful surprise waiting just around the corner.
-
-Go solve this, Sherlock.
+Here’s to us — to every smile, every hug, every small and wild moment we share, and to all the surprises, laughter, and love that life still has waiting just around the corner. 💖
     </p>
 
-    <div class="signature">— Your slightly chaotic detective 💙</div>
+
 
     <!-- Locked icon and hint -->
     <div class="lock-container">
       <img src="lock.png" alt="Locked" id="lockIcon" title="Tap to enter key">
+      <input type="text" id="keyInput" placeholder="Enter the key...">
+      <button id="unlockButton">Unlock 🔓</button>
       <img src="hint.png" alt="Hint" id="hintIcon" title="Need a hint?">
     </div>
-
   </div>
 
   <script>
     const lockIcon = document.getElementById('lockIcon');
     const hintIcon = document.getElementById('hintIcon');
+    const keyInput = document.getElementById('keyInput');
+    const unlockButton = document.getElementById('unlockButton');
     const letterText = document.getElementById('letterText');
     const correctKey = "Together";
 
+    // Show input box when lock clicked
     lockIcon.addEventListener('click', () => {
-  let userKey = prompt("Enter the key to unlock the lock:");
-  if(userKey === null) return; // user cancelled
-  if(userKey.trim().toLowerCase() === correctKey.toLowerCase()){
-    alert("✨ Congratulations! You unlocked the lock! ✨");
-    // Navigate to the next clue page
-    window.location.href = "Caeser.html";
-  } else {
-    alert("❌ That's not the key. Try again!");
-  }
-});
+      keyInput.style.display = 'block';
+      unlockButton.style.display = 'block';
+      keyInput.focus();
+    });
 
+    // Unlock logic
+    unlockButton.addEventListener('click', () => {
+      const userKey = keyInput.value.trim();
+      if(userKey.toLowerCase() === correctKey.toLowerCase()) {
+        alert("✨ Congratulations! You unlocked the lock! ✨");
+        window.location.href = "Caeser.html";
+      } else {
+        alert("❌ That's not the key. Try again!");
+      }
+    });
 
+    // Hint functionality
     hintIcon.addEventListener('click', () => {
       alert('🔐 Clue: “It’s something we always are, no matter where the clues take us.”');
-      // Highlight "together" in the letter
-      letterText.innerHTML = letterText.innerHTML.replace(/(together)/gi, '<span class="highlight">$1</span>');
+      letterText.innerHTML = letterText.innerHTML.replace(/(together)/i, '<span class="highlight">$1</span>'); 
     });
   </script>
-
 </body>
 </html>
+
+
