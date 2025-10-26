@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -8,14 +9,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
 
   <style>
-    html, body {
+    html,
+    body {
       margin: 0;
       padding: 0;
       width: 100vw;
       height: 100vh;
       overflow: hidden;
       font-family: 'Playfair Display', serif;
-      /* Aurora Background */
       background:
         radial-gradient(ellipse 120% 80% at 70% 20%, rgba(255, 20, 147, 0.15), transparent 50%),
         radial-gradient(ellipse 100% 60% at 30% 10%, rgba(0, 255, 255, 0.12), transparent 60%),
@@ -31,7 +32,7 @@
     .letter-container {
       display: flex;
       justify-content: center;
-      padding: 40px 20px 300px 20px; /* extra bottom space */
+      padding: 40px 20px 0 20px; /* bottom padding handled by spacer */
       box-sizing: border-box;
       height: 100%;
       overflow-y: auto;
@@ -54,13 +55,19 @@
     .line {
       opacity: 0;
       transform: translateY(10px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transition: opacity 1s ease, transform 1s ease;
       margin-bottom: 20px;
     }
 
     .line.show {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    /* Spacer to prevent last line from being hidden by boarding pass */
+    .line-spacer {
+      height: 140px; /* slightly more than boarding pass height */
+      flex-shrink: 0;
     }
 
     /* Boarding pass */
@@ -97,7 +104,7 @@
       color: #255DCA;
       padding: 30px 20px;
       border-radius: 20px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
       text-align: center;
       opacity: 0;
       transition: all 0.8s ease;
@@ -106,6 +113,9 @@
       flex-direction: column;
       align-items: center;
       max-width: 90vw;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-sizing: border-box;
     }
 
     #cardPopup.show {
@@ -135,8 +145,10 @@
 
     #cardPopup .buttons {
       display: flex;
+      flex-wrap: wrap;
       gap: 15px;
       margin-top: 10px;
+      justify-content: center;
     }
 
     #cardPopup .btn {
@@ -151,7 +163,7 @@
 
     #cardPopup .btn:hover {
       transform: scale(1.05);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     #cardPopup .btn.green {
@@ -163,8 +175,18 @@
       background-color: #2196F3;
       color: white;
     }
+
+    /* Responsive boarding pass */
+    @media (max-width: 400px) {
+      #boardingPass {
+        width: 70px;
+        bottom: 15px;
+        right: 15px;
+      }
+    }
   </style>
 </head>
+
 <body>
 
   <div class="letter-container" id="letterContainer">
@@ -179,8 +201,8 @@
 
       <p class="line">You somehow manage to drive me insane and make me smile at the same time.<br>Like, how is it possible to get lost with Google Maps literally guiding you step by step?<br>It’s impressive… and infuriatingly adorable.</p>
 
-      <p class="line">You’re this hilarious contradiction ... smart enough to ace anything, but somehow still clueless about the simplest things.<br>Ice cream over bus fare? 10/10 decision-making.I respect the priorities.
-I swear, sometimes I think the universe sent you just to balance me out ... my overthinking running into your boundless optimism, my quiet self meeting your contagious energy. 🍦😆</p>
+      <p class="line">You’re this hilarious contradiction ... smart enough to ace anything, but somehow still clueless about the simplest things.<br>Ice cream over bus fare? 10/10 decision-making. I respect the priorities.<br>
+        I swear, sometimes I think the universe sent you just to balance me out ... my overthinking running into your boundless optimism, my quiet self meeting your contagious energy. 🍦😆</p>
 
       <p class="line">You somehow make me believe in things I thought I’d stopped believing in.<br>Being around you feels like finally finding a home I didn’t know I was searching for.<br>You remind me that not everything needs a reason to be beautiful ... sometimes, it just is.</p>
 
@@ -188,7 +210,10 @@ I swear, sometimes I think the universe sent you just to balance me out ... my o
 
       <p class="line">Then it hit me… why just dream about it?<br>Picture it: us, exploring the world together, me probably getting frustrated while you somehow still manage to get lost… again. 😆<br>Honestly, I can’t think of anyone else I’d rather get lost with.</p>
 
-      <p class="line"><strong>Don’t just sit there reading ... hop on! Come along for the ride, because the best stories are the ones we make ourselves.</strong></p>
+      <p class="line">Don’t just sit there reading ... hop on! Come along for the ride, because the best stories are the ones we make ourselves.</p>
+
+      <!-- Spacer to keep last line above boarding pass -->
+      <div class="line-spacer"></div>
     </div>
   </div>
 
@@ -207,14 +232,13 @@ I swear, sometimes I think the universe sent you just to balance me out ... my o
   </div>
 
   <script>
-    // Line reveal
+    // Smooth line reveal
     const lines = document.querySelectorAll('.line');
-    let delay = 0;
-    lines.forEach((line) => {
+    let delay = 500;
+    lines.forEach((line, index) => {
       setTimeout(() => {
         line.classList.add('show');
-      }, delay);
-      delay += 1000;
+      }, delay * index);
     });
 
     const bp = document.getElementById('boardingPass');
@@ -255,6 +279,7 @@ I swear, sometimes I think the universe sent you just to balance me out ... my o
       card.classList.remove('show');
       card.style.transform = 'translate(-50%, -50%) scale(0.5)';
       card.style.opacity = '0';
+
       setTimeout(() => {
         window.location.href = 'journey.html';
       }, 800);
@@ -263,5 +288,7 @@ I swear, sometimes I think the universe sent you just to balance me out ... my o
     greenBtn.addEventListener('click', closeCardAndGo);
     blueBtn.addEventListener('click', closeCardAndGo);
   </script>
+
 </body>
+
 </html>
