@@ -3,37 +3,246 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday Babee</title>
-
-  <!-- Elegant Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-
-  <!-- Animate.css -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
+  <title>Caesar Clue</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
   <style>
-    html, body {
+    body {
       margin: 0;
       padding: 0;
-      height: 100dvh;
-      overflow: hidden;
-    }
-
-    /* 🌈 Aurora Dream Soft Harmony gradient */
-    body {
-      background: 
-        radial-gradient(ellipse 80% 60% at 60% 20%, rgba(175, 109, 255, 0.50), transparent 65%),
-        radial-gradient(ellipse 70% 60% at 20% 80%, rgba(255, 100, 180, 0.45), transparent 65%),
-        radial-gradient(ellipse 60% 50% at 60% 65%, rgba(255, 235, 170, 0.43), transparent 62%),
-        radial-gradient(ellipse 65% 40% at 50% 60%, rgba(120, 190, 255, 0.48), transparent 68%),
-        linear-gradient(180deg, #f7eaff 0%, #fde2ea 100%);
-      background-attachment: fixed;
-      background-size: cover;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, #F3E5F5 0%, #fff 100%);
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      min-height: 100vh;
+      padding: 30px 20px;
+      box-sizing: border-box;
+      color: #2c3e50;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    .spotify-icon, .spotify-lock {
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      margin-bottom: 25px;
+      transition: transform 0.3s ease;
+    }
+
+    .spotify-icon:hover, .spotify-lock:hover {
+      transform: scale(1.1);
+    }
+
+    .message-box {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      max-width: 700px;
+      width: 100%;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      line-height: 1.7;
+      color: #2c3e50;
+    }
+
+    .message-box p {
+      margin-bottom: 15px;
+    }
+
+    .highlight {
+      color: #ff4d6d;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    /* Popup styling */
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 25px 20px;
+      border-radius: 15px;
       text-align: center;
+      max-width: 300px;
+      width: 80%;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      animation: popUp 0.4s ease;
+    }
+
+    .popup-content input {
+      width: 80%;
+      padding: 8px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+
+    .popup-content button {
+      margin-top: 15px;
+      padding: 8px 15px;
+      border-radius: 8px;
+      border: none;
+      background-color: #255dca;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    .popup-content button:hover {
+      background-color: #1a44a2;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes popUp {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Confetti / hearts */
+    .heart {
+      position: fixed;
+      font-size: 24px;
+      color: #ff4d6d;
+      animation: fall 4s linear forwards;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Spotify Icons -->
+  <div style="position: relative; display: flex; gap: 15px;">
+    <img src="spotify.png" alt="Spotify Icon" class="spotify-icon" id="spotifyLink">
+    <img src="Spotifytruelock.png" alt="Spotify Lock Icon" class="spotify-lock" id="spotifyLock" style="display:none;">
+  </div>
+
+  <!-- Message -->
+  <div class="message-box">
+    <p>When we were just falling in love, I used to listen to songs and wonder what it would feel like to have you beside me — to live those lyrics instead of just dreaming them.</p>
+
+    <p>Now those same songs sound different… because I don’t have to imagine anymore. Somehow, life found its way — and it led me straight to you. 💞</p>
+
+    <p>So, I went back to the songs that once held my wishes and turned them into something special — a playlist, made just for you.</p>
+
+    <p>I actually had so much more planned for this little adventure, but due to some <em>unforeseen technical drama</em> (aka my laptop charger deciding to retire early 😅), I had to cut short a few parts of the treasure hunt.</p>
+
+    <p>But the heart of it is still here — and so is your final clue.</p>
+
+    <p style="margin-top: 20px; font-weight: bold;">There’s more to the playlist than meets the ear.</p>
+
+    <p style="margin-top: 10px; font-style: italic;">Above these words plays a small symphony of clues.<br>
+    Follow the first notes, the first letters… they’ll lead you home to the key that opens the <span class="highlight" id="lockWord">lock</span>.</p>
+
+    <p style="margin-top: 20px;">I know it looks like just another playlist — but you know me, I couldn’t resist hiding something. 😏<br>
+    Pay attention to the songs. They’ve been trying to tell you something all along.</p>
+  </div>
+
+  <!-- Key Input Popup -->
+  <div class="popup" id="keyPopup">
+    <div class="popup-content">
+      <p>Enter the key:</p>
+      <input type="text" id="keyInput" placeholder="Type the key here">
+      <button id="submitKey">Submit</button>
+    </div>
+  </div>
+
+  <!-- Closing Message Popup -->
+  <div class="popup" id="closingPopup">
+    <div class="popup-content">
+      <p>You found the key! 🎉</p>
+      <p>I know it’s not much, but I hope you enjoyed this little treasure hunt. It was made with all my heart 💖</p>
+      <p>Happy Birthday, my love! 🥰</p>
+      <button id="closeClosingPopup">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const spotifyLink = document.getElementById('spotifyLink');
+    spotifyLink.addEventListener('click', () => {
+      window.location.href = 'https://spotify.link/R1dwClDMAXb';
+    });
+
+    const lockWord = document.getElementById('lockWord');
+    const spotifyLock = document.getElementById('spotifyLock');
+    const keyPopup = document.getElementById('keyPopup');
+    const keyInput = document.getElementById('keyInput');
+    const submitKey = document.getElementById('submitKey');
+    const closingPopup = document.getElementById('closingPopup');
+    const closeClosingPopup = document.getElementById('closeClosingPopup');
+
+    // Tap "lock"
+    lockWord.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      spotifyLock.style.display = 'inline';
+    });
+
+    // Tap Spotify lock icon
+    spotifyLock.addEventListener('click', () => {
+      keyPopup.style.display = 'flex';
+      keyInput.value = '';
+      keyInput.focus();
+    });
+
+    // Submit key
+    submitKey.addEventListener('click', () => {
+      if(keyInput.value.toLowerCase() === 'love') {
+        spotifyLock.src = 'Spotifytrue.png';
+        keyPopup.style.display = 'none';
+        closingPopup.style.display = 'flex';
+        triggerHearts(30); // launch confetti hearts
+      } else {
+        alert("Hmm, that’s not quite right. Try again!");
+      }
+    });
+
+    // Close closing popup
+    closeClosingPopup.addEventListener('click', () => {
+      closingPopup.style.display = 'none';
+    });
+
+    // Function to trigger falling hearts
+    function triggerHearts(num) {
+      for(let i = 0; i < num; i++){
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.textContent = '💖';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+        heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+      }
+    }
+
+  </script>
+
+</body>
+</html>
       position: relative;
     }
 
@@ -215,4 +424,5 @@
   </script>
 </body>
 </html>
+
 
